@@ -1,0 +1,303 @@
+/* Jinquan Hang — personal homepage.
+   Single stylesheet, no external requests (fonts included: system stack only). */
+
+:root {
+  --bg: #ffffff;
+  --text: #23292f;
+  --muted: #5f6873;
+  --faint: #6b7580;
+  --accent: #2b5d8a;
+  --border: #e8ecf0;
+  --placeholder: #edf1f5;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #15191e;
+    --text: #dfe5ec;
+    --muted: #a3aeba;
+    --faint: #8b96a3;
+    --accent: #7fb0da;
+    --border: #29313a;
+    --placeholder: #232b34;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 16px/1.58 system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  -webkit-text-size-adjust: 100%;
+}
+
+main {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 44px 46px 56px;
+}
+
+a {
+  color: var(--accent);
+}
+
+a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* ---------- header ---------- */
+
+.intro {
+  display: flow-root; /* contains the floated portrait without clipping focus rings */
+}
+
+.portrait {
+  float: right;
+  width: 132px;
+  height: 158px;
+  margin: 4px 0 14px 24px;
+  border-radius: 6px;
+  background: var(--placeholder);
+  object-fit: cover;
+}
+
+h1 {
+  font-size: 27px;
+  font-weight: 680;
+  letter-spacing: -0.012em;
+  margin: 0;
+  text-wrap: balance;
+}
+
+.name-cn {
+  color: var(--faint);
+  font-weight: 400;
+  font-size: 21px;
+}
+
+.role {
+  margin: 4px 0 10px;
+  color: var(--muted);
+}
+
+.profile-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 13px;
+  font-size: 14.5px;
+  margin-bottom: 16px;
+}
+
+.profile-links a {
+  text-decoration: none;
+  font-weight: 550;
+}
+
+.profile-links a:hover {
+  text-decoration: underline;
+}
+
+.bio {
+  margin: 0;
+}
+
+/* ---------- sections ---------- */
+
+section {
+  margin-top: 28px;
+}
+
+h2 {
+  font-size: 17px;
+  font-weight: 650;
+  margin: 0 0 12px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* ---------- news ---------- */
+
+.news {
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  gap: 5px 14px;
+  font-size: 15px;
+}
+
+.news-date {
+  color: var(--faint);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- publications ---------- */
+
+.pub {
+  margin-bottom: 16px;
+}
+
+.pub-title {
+  font-weight: 620;
+  margin: 0;
+}
+
+.pub-authors {
+  font-size: 14.5px;
+  color: var(--muted);
+  margin: 2px 0;
+}
+
+.pub-authors b {
+  color: var(--text);
+  font-weight: 620;
+}
+
+.pub-meta {
+  font-size: 14px;
+  margin: 2px 0 0;
+}
+
+.venue {
+  color: var(--accent);
+  font-weight: 680;
+  margin-right: 6px;
+}
+
+.pub-meta a {
+  text-decoration: none;
+  font-weight: 550;
+}
+
+.pub-meta a:hover {
+  text-decoration: underline;
+}
+
+/* ---------- projects ---------- */
+
+.project {
+  margin-bottom: 16px;
+}
+
+.project-title {
+  font-weight: 620;
+  margin: 0 0 2px;
+}
+
+.project-repo {
+  font-size: 13.5px;
+  font-weight: 550;
+  text-decoration: none;
+  margin-left: 8px;
+  white-space: nowrap;
+}
+
+.project-repo::before {
+  content: "[";
+}
+
+.project-repo::after {
+  content: "]";
+}
+
+.project-repo:hover {
+  text-decoration: underline;
+}
+
+.project-desc {
+  margin: 0;
+  font-size: 15px;
+  color: var(--muted);
+}
+
+/* ---------- experience & education ---------- */
+
+.entry {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 8px;
+  font-size: 15px;
+}
+
+.entry-name {
+  font-weight: 620;
+}
+
+.entry-date {
+  color: var(--faint);
+  font-size: 14px;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- footer ---------- */
+
+footer {
+  margin-top: 36px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+  color: var(--faint);
+  font-size: 14px;
+}
+
+footer p {
+  margin: 0;
+}
+
+/* ---------- small screens ---------- */
+
+@media (max-width: 640px) {
+  main {
+    padding: 30px 22px 40px;
+  }
+
+  .portrait {
+    width: 100px;
+    height: 120px;
+    margin: 4px 0 10px 16px;
+  }
+
+  h1 {
+    font-size: 24px;
+  }
+
+  .name-cn {
+    font-size: 19px;
+  }
+
+  .news {
+    grid-template-columns: 52px 1fr;
+  }
+
+  .entry {
+    flex-direction: column;
+    gap: 1px;
+  }
+}
+
+/* ---------- print ---------- */
+
+@media print {
+  :root {
+    --bg: #ffffff;
+    --text: #000000;
+    --muted: #333333;
+    --faint: #555555;
+    --accent: #00417a;
+    --border: #cccccc;
+  }
+
+  main {
+    max-width: none;
+    padding: 0;
+  }
+
+  a {
+    text-decoration: none;
+  }
+}
