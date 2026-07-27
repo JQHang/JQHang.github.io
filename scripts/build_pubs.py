@@ -149,8 +149,11 @@ def render(entries):
         if links:
             meta += " " + " ".join(links)
 
+        # A stable per-paper anchor, so others can deep-link a single entry.
+        anchor = re.sub(r"[^a-z0-9-]", "", entry.get("_key", "").lower())
+
         blocks.append(
-            f'{INDENT}<article class="pub">\n'
+            f'{INDENT}<article class="pub" id="pub-{anchor}">\n'
             f'{INDENT}  <p class="pub-title">{html.escape(plain(entry.get("title", "")))}</p>\n'
             f'{INDENT}  <p class="pub-authors">{format_authors(entry.get("author", ""))}</p>\n'
             f'{INDENT}  <p class="pub-meta">{meta}</p>\n'

@@ -1,5 +1,9 @@
 /* Jinquan Hang — personal homepage.
-   Single stylesheet, no external requests (fonts included: system stack only). */
+   Single stylesheet, no external requests (system font stack only).
+
+   Layout: a sticky left identity rail beside the content column — the pattern
+   used by most peers in this field. The rail holds identity only; navigation,
+   if it is ever needed, belongs in a bar above the content, not in the rail. */
 
 :root {
   --bg: #ffffff;
@@ -9,6 +13,11 @@
   --accent: #2b5d8a;
   --border: #e8ecf0;
   --placeholder: #edf1f5;
+  --venue-bg: #e9eef4;
+
+  --rail: 244px;
+  --gap: 80px;
+  --content: 752px;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -20,6 +29,7 @@
     --accent: #7fb0da;
     --border: #29313a;
     --placeholder: #232b34;
+    --venue-bg: #262f3a;
   }
 }
 
@@ -35,12 +45,6 @@ body {
   -webkit-text-size-adjust: 100%;
 }
 
-main {
-  max-width: 760px;
-  margin: 0 auto;
-  padding: 44px 46px 56px;
-}
-
 a {
   color: var(--accent);
 }
@@ -51,24 +55,48 @@ a:focus-visible {
   border-radius: 2px;
 }
 
-/* ---------- header ---------- */
+/* Anchors land clear of the top edge. If a sticky nav bar is ever added,
+   this single value becomes its height plus a little. */
+section[id] {
+  scroll-margin-top: 1.5rem;
+}
 
-.intro {
-  display: flow-root; /* contains the floated portrait without clipping focus rings */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* ---------- layout ---------- */
+
+.layout {
+  display: grid;
+  grid-template-columns: var(--rail) minmax(0, var(--content));
+  column-gap: var(--gap);
+  justify-content: center;
+  padding: 52px 40px 72px;
+}
+
+/* ---------- left identity rail ---------- */
+
+.rail {
+  position: sticky;
+  top: 52px;
+  align-self: start; /* a stretched grid item cannot stick */
 }
 
 .portrait {
-  float: right;
-  width: 132px;
-  height: 158px;
-  margin: 4px 0 14px 24px;
+  display: block;
+  width: 180px;
+  height: 216px;
+  margin-bottom: 18px;
   border-radius: 6px;
   background: var(--placeholder);
   object-fit: cover;
 }
 
-h1 {
-  font-size: 27px;
+.rail h1 {
+  font-size: 24px;
   font-weight: 680;
   letter-spacing: -0.012em;
   margin: 0;
@@ -76,22 +104,25 @@ h1 {
 }
 
 .name-cn {
+  display: block;
+  margin-top: 1px;
   color: var(--faint);
   font-weight: 400;
-  font-size: 21px;
+  font-size: 18px;
 }
 
 .role {
-  margin: 4px 0 10px;
+  margin: 8px 0 14px;
   color: var(--muted);
+  font-size: 14.5px;
+  line-height: 1.45;
 }
 
 .profile-links {
   display: flex;
-  flex-wrap: wrap;
-  gap: 4px 13px;
+  flex-direction: column;
+  gap: 5px;
   font-size: 14.5px;
-  margin-bottom: 16px;
 }
 
 .profile-links a {
@@ -103,14 +134,24 @@ h1 {
   text-decoration: underline;
 }
 
+.contact {
+  margin: 16px 0 0;
+  color: var(--faint);
+  font-size: 13.5px;
+}
+
+/* ---------- content column ---------- */
+
+.content {
+  min-width: 0;
+}
+
 .bio {
   margin: 0;
 }
 
-/* ---------- sections ---------- */
-
 section {
-  margin-top: 28px;
+  margin-top: 30px;
 }
 
 h2 {
@@ -159,13 +200,30 @@ h2 {
 
 .pub-meta {
   font-size: 14px;
+  line-height: 1.6;
   margin: 2px 0 0;
 }
 
+/* The venue is a filled tag at exactly the link size, so nothing on this line
+   is smaller than anything else, and its ink is body-colored rather than accent
+   so it never reads as clickable.
+
+   padding-bottom is 2px more than padding-top on purpose. Equal padding centers
+   the fill on the font's em box, which at 14px is 14.0 above the baseline and
+   3.0 below; the box then lands ~1.25px above the optical center of the text
+   beside it, which has descenders ("[Paper]") while "KDD 2024" does not. */
 .venue {
-  color: var(--accent);
-  font-weight: 680;
-  margin-right: 6px;
+  display: inline-block;
+  vertical-align: baseline;
+  max-width: 100%;
+  margin-right: 7px;
+  padding: 1px 7px 3px;
+  border-radius: 3px;
+  background: var(--venue-bg);
+  color: var(--text);
+  font-size: inherit;
+  font-weight: 600;
+  line-height: 1.42;
 }
 
 .pub-meta a {
@@ -249,25 +307,71 @@ footer p {
   margin: 0;
 }
 
-/* ---------- small screens ---------- */
+/* ---------- narrow windows: rail unsticks and becomes a header ---------- */
 
-@media (max-width: 640px) {
-  main {
-    padding: 30px 22px 40px;
+@media (max-width: 1120px) {
+  .layout {
+    grid-template-columns: minmax(0, 780px);
+    padding: 36px 28px 56px;
+  }
+
+  .rail {
+    position: static;
+    display: grid;
+    grid-template-columns: 168px 1fr;
+    column-gap: 26px;
+    margin-bottom: 28px;
   }
 
   .portrait {
-    width: 100px;
-    height: 120px;
-    margin: 4px 0 10px 16px;
+    grid-row: 1 / span 4;
+    width: 168px;
+    height: 202px;
+    margin-bottom: 0;
   }
 
-  h1 {
-    font-size: 24px;
+  .rail h1,
+  .role,
+  .profile-links,
+  .contact {
+    grid-column: 2;
+  }
+
+  .profile-links {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 4px 14px;
+  }
+}
+
+/* A sticky block taller than the window traps its own bottom. */
+@media (max-height: 680px) {
+  .rail {
+    position: static;
+  }
+}
+
+@media (max-width: 640px) {
+  .layout {
+    padding: 26px 20px 44px;
+  }
+
+  .rail {
+    grid-template-columns: 108px 1fr;
+    column-gap: 18px;
+  }
+
+  .portrait {
+    width: 108px;
+    height: 130px;
+  }
+
+  .rail h1 {
+    font-size: 21px;
   }
 
   .name-cn {
-    font-size: 19px;
+    font-size: 17px;
   }
 
   .news {
@@ -292,9 +396,19 @@ footer p {
     --border: #cccccc;
   }
 
-  main {
-    max-width: none;
+  .layout {
+    display: block;
     padding: 0;
+  }
+
+  .rail {
+    position: static;
+  }
+
+  .venue {
+    background: none;
+    padding: 0;
+    font-weight: 700;
   }
 
   a {
