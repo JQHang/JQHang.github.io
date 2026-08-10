@@ -133,6 +133,11 @@ def format_authors(raw):
     return ", ".join(out)
 
 
+def is_selected(entry):
+    """The page shows selected work only; the .bib keeps the full record."""
+    return entry.get("selected", "").strip().lower() in ("yes", "true", "1")
+
+
 def render(entries):
     """Render every entry, newest year first, file order preserved within a year."""
     ordered = sorted(entries, key=lambda e: int(e.get("year", 0)), reverse=True)
@@ -175,6 +180,14 @@ def main():
     if not entries:
         sys.exit(f"No entries found in {BIB}")
 
+    shown = [entry for entry in entries if is_selected(entry)]
+    if not shown:
+        sys.exit(
+            f"No entry in {BIB} is marked `selected = {{yes}}`, so the page would "
+            f"have an empty publications list. Mark the ones to display."
+        )
+    left_out = len(entries) - len(shown)
+
     page = PAGE.read_text(encoding="utf-8")
     head, marker, rest = page.partition(START)
     _, end_marker, tail = rest.partition(END)
@@ -183,19 +196,23 @@ def main():
 
     # Spliced literally — never through re.sub, whose replacement argument would
     # reinterpret backslashes coming from the bibliography.
-    updated = f"{head}{START}\n{render(entries)}\n{INDENT}{END}{tail}"
+    updated = f"{head}{START}\n{render(shown)}\n{INDENT}{END}{tail}"
+
+    tally = f"{len(shown)} selected publication{'s' if len(shown) != 1 else ''}"
+    if left_out:
+        tally += f", {left_out} not marked selected and left out"
 
     if args.check:
         if updated != page:
             sys.exit("index.html is out of date — run: python3 scripts/build_pubs.py")
-        print(f"index.html is up to date ({len(entries)} publications)")
+        print(f"index.html is up to date ({tally})")
         return
 
     if updated == page:
-        print(f"index.html already current ({len(entries)} publications)")
+        print(f"index.html already current ({tally})")
     else:
         PAGE.write_text(updated, encoding="utf-8")
-        print(f"Wrote {len(entries)} publications into index.html")
+        print(f"Wrote {tally} into index.html")
 
 
 if __name__ == "__main__":

@@ -2,7 +2,8 @@
    Single stylesheet, no external requests (system font stack only).
 
    Layout: a sticky left identity rail beside the content column — the pattern
-   used by most peers in this field. The rail holds identity only; navigation,
+   used by most peers in this field. The rail holds identity only: name, role,
+   and the links needed to reach or verify the person, with no photo. Navigation,
    if it is ever needed, belongs in a bar above the content, not in the rail. */
 
 :root {
@@ -12,7 +13,6 @@
   --faint: #6b7580;
   --accent: #2b5d8a;
   --border: #e8ecf0;
-  --placeholder: #edf1f5;
   --venue-bg: #e9eef4;
 
   --rail: 244px;
@@ -28,7 +28,6 @@
     --faint: #8b96a3;
     --accent: #7fb0da;
     --border: #29313a;
-    --placeholder: #232b34;
     --venue-bg: #262f3a;
   }
 }
@@ -85,16 +84,6 @@ section[id] {
   align-self: start; /* a stretched grid item cannot stick */
 }
 
-.portrait {
-  display: block;
-  width: 180px;
-  height: 216px;
-  margin-bottom: 18px;
-  border-radius: 6px;
-  background: var(--placeholder);
-  object-fit: cover;
-}
-
 .rail h1 {
   font-size: 24px;
   font-weight: 680;
@@ -134,10 +123,13 @@ section[id] {
   text-decoration: underline;
 }
 
-.contact {
-  margin: 16px 0 0;
-  color: var(--faint);
+/* The address is the only place contact info lives now, so it is spelled out in
+   full and is clickable rather than hidden behind the word "Email". It leads the
+   list with a little extra space under it, since it is contact, not a profile. */
+.email {
   font-size: 13.5px;
+  margin-bottom: 4px;
+  overflow-wrap: anywhere;
 }
 
 /* ---------- content column ---------- */
@@ -160,20 +152,6 @@ h2 {
   margin: 0 0 12px;
   padding-bottom: 6px;
   border-bottom: 1px solid var(--border);
-}
-
-/* ---------- news ---------- */
-
-.news {
-  display: grid;
-  grid-template-columns: 64px 1fr;
-  gap: 5px 14px;
-  font-size: 15px;
-}
-
-.news-date {
-  color: var(--faint);
-  font-variant-numeric: tabular-nums;
 }
 
 /* ---------- publications ---------- */
@@ -235,50 +213,10 @@ h2 {
   text-decoration: underline;
 }
 
-/* ---------- projects ---------- */
-
-.project {
-  margin-bottom: 16px;
-}
-
-.project-title {
-  font-weight: 620;
-  margin: 0 0 2px;
-}
-
-.project-repo {
-  font-size: 13.5px;
-  font-weight: 550;
-  text-decoration: none;
-  margin-left: 8px;
-  white-space: nowrap;
-}
-
-.project-repo::before {
-  content: "[";
-}
-
-.project-repo::after {
-  content: "]";
-}
-
-.project-repo:hover {
-  text-decoration: underline;
-}
-
-.project-desc {
-  margin: 0;
-  font-size: 15px;
-  color: var(--muted);
-}
-
-/* ---------- experience & education ---------- */
+/* ---------- education ---------- */
 
 .entry {
-  display: flex;
-  justify-content: space-between;
-  gap: 16px;
-  margin-bottom: 8px;
+  margin-bottom: 14px;
   font-size: 15px;
 }
 
@@ -286,25 +224,16 @@ h2 {
   font-weight: 620;
 }
 
-.entry-date {
+/* Dates and location form one muted line under the degree rather than a
+   right-aligned column. A right column would have to hold both, and measured
+   against the 752px content width the longest row overflows it by 15px — so the
+   layout would break on wide screens and reflow on narrow ones. Stacked, it
+   renders identically at every width and needs no breakpoint of its own. */
+.entry-meta {
+  margin-top: 1px;
   color: var(--faint);
   font-size: 14px;
-  white-space: nowrap;
   font-variant-numeric: tabular-nums;
-}
-
-/* ---------- footer ---------- */
-
-footer {
-  margin-top: 36px;
-  padding-top: 14px;
-  border-top: 1px solid var(--border);
-  color: var(--faint);
-  font-size: 14px;
-}
-
-footer p {
-  margin: 0;
 }
 
 /* ---------- narrow windows: rail unsticks and becomes a header ---------- */
@@ -317,30 +246,18 @@ footer p {
 
   .rail {
     position: static;
-    display: grid;
-    grid-template-columns: 168px 1fr;
-    column-gap: 26px;
     margin-bottom: 28px;
   }
 
-  .portrait {
-    grid-row: 1 / span 4;
-    width: 168px;
-    height: 202px;
-    margin-bottom: 0;
-  }
-
-  .rail h1,
-  .role,
-  .profile-links,
-  .contact {
-    grid-column: 2;
-  }
-
+  /* Wide enough for one line, so the links run across instead of down. */
   .profile-links {
     flex-direction: row;
     flex-wrap: wrap;
     gap: 4px 14px;
+  }
+
+  .email {
+    margin-bottom: 0;
   }
 }
 
@@ -356,31 +273,12 @@ footer p {
     padding: 26px 20px 44px;
   }
 
-  .rail {
-    grid-template-columns: 108px 1fr;
-    column-gap: 18px;
-  }
-
-  .portrait {
-    width: 108px;
-    height: 130px;
-  }
-
   .rail h1 {
     font-size: 21px;
   }
 
   .name-cn {
     font-size: 17px;
-  }
-
-  .news {
-    grid-template-columns: 52px 1fr;
-  }
-
-  .entry {
-    flex-direction: column;
-    gap: 1px;
   }
 }
 
