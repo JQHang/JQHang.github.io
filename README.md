@@ -8,7 +8,7 @@ index.html            the whole site
 style.css             all styling (light + dark, follows the OS setting)
 data/papers.bib       publications — the single source of truth
 scripts/build_pubs.py regenerates the publications section from papers.bib
-assets/               favicon
+assets/               favicon and the CV (Jinquan-Hang-CV.pdf)
 CNAME                 custom domain for GitHub Pages
 ```
 
@@ -53,12 +53,15 @@ To check dark mode, switch macOS to Dark Appearance (System Settings → Appeara
 
 ## Still to do
 
-- Add an English CV as `assets/cv.pdf`, then uncomment the CV link in `index.html`.
-- Add the LinkedIn URL in `index.html` (the link is commented out next to the CV one).
+- Add the LinkedIn URL in `index.html` (the link is commented out in the rail).
 - The BiLink `[Paper]` link points at a DOI that resolves once the PVLDB issue
   publishes; it 404s until then.
-- Drop the Education section once `assets/cv.pdf` is linked — it is on the page
-  because nothing else currently shows the degrees before Rutgers.
+
+To update the CV, overwrite `assets/Jinquan-Hang-CV.pdf` with a fresh export and
+push; the filename stays, so no link changes. The LaTeX source lives outside this
+repository. Education stays on the page even with the CV linked: the page serves
+readers who skim without downloading anything, which is also why the publications
+stay despite appearing in the CV.
 
 ## Deployment
 
