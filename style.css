@@ -15,7 +15,10 @@
   --border: #e8ecf0;
   --venue-bg: #e9eef4;
 
-  --rail: 244px;
+  /* The rail column sizes itself to its content, so --rail-max is only a
+     backstop: identity lines are short, and a fixed width would leave dead
+     space inside the column that reads as a wider gap than --gap actually is. */
+  --rail-max: 300px;
   --gap: 80px;
   --content: 752px;
 }
@@ -70,7 +73,7 @@ section[id] {
 
 .layout {
   display: grid;
-  grid-template-columns: var(--rail) minmax(0, var(--content));
+  grid-template-columns: max-content minmax(0, var(--content));
   column-gap: var(--gap);
   justify-content: center;
   padding: 52px 40px 72px;
@@ -82,6 +85,7 @@ section[id] {
   position: sticky;
   top: 52px;
   align-self: start; /* a stretched grid item cannot stick */
+  max-width: var(--rail-max);
 }
 
 .rail h1 {
@@ -154,6 +158,12 @@ h2 {
   border-bottom: 1px solid var(--border);
 }
 
+/* Body prose inside a section, as opposed to the lists that make up the rest
+   of the page. Same measure and size as the bio above it. */
+.prose {
+  margin: 0;
+}
+
 /* ---------- publications ---------- */
 
 .pub {
@@ -213,6 +223,25 @@ h2 {
   text-decoration: underline;
 }
 
+/* ---------- applications ---------- */
+
+/* Deliberately the same shape as a publication entry: a bold title line with
+   its detail beneath, so the two sections read as one page rather than two. */
+.app {
+  margin-bottom: 16px;
+}
+
+.app-title {
+  font-weight: 620;
+  margin: 0 0 2px;
+}
+
+.app-desc {
+  margin: 0;
+  font-size: 15px;
+  color: var(--muted);
+}
+
 /* ---------- education ---------- */
 
 .entry {
@@ -244,8 +273,11 @@ h2 {
     padding: 36px 28px 56px;
   }
 
+  /* No longer a column, so the identity block spans the full measure and the
+     rail-column cap has to come off with it. */
   .rail {
     position: static;
+    max-width: none;
     margin-bottom: 28px;
   }
 

@@ -3,16 +3,16 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Jinquan Hang | Ph.D. Student @ Rutgers</title>
-<meta name="description" content="Jinquan Hang is a Ph.D. student in Computer Science at Rutgers University working on heterogeneous graph neural networks and distributed graph processing for large-scale real-world applications.">
+<title>Jinquan Hang | Ph.D. Candidate @ Rutgers</title>
+<meta name="description" content="Jinquan Hang is a Ph.D. candidate in Computer Science at Rutgers University working on distributed processing and learning over tables represented as graphs, with methods running in production at billion scale.">
 <meta name="author" content="Jinquan Hang">
 <link rel="canonical" href="https://jinquanhang.com/">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="style.css">
 
 <meta property="og:type" content="profile">
-<meta property="og:title" content="Jinquan Hang | Ph.D. Student @ Rutgers">
-<meta property="og:description" content="Ph.D. student in Computer Science at Rutgers University working on heterogeneous graph neural networks and distributed graph processing for large-scale real-world applications.">
+<meta property="og:title" content="Jinquan Hang | Ph.D. Candidate @ Rutgers">
+<meta property="og:description" content="Ph.D. candidate in Computer Science at Rutgers University working on distributed processing and learning over tables represented as graphs, with methods running in production at billion scale.">
 <meta property="og:url" content="https://jinquanhang.com/">
 <meta name="twitter:card" content="summary">
 
@@ -23,7 +23,7 @@
   "name": "Jinquan Hang",
   "alternateName": "杭锦泉",
   "url": "https://jinquanhang.com/",
-  "jobTitle": "Ph.D. Student in Computer Science",
+  "jobTitle": "Ph.D. Candidate in Computer Science",
   "affiliation": {
     "@type": "CollegeOrUniversity",
     "name": "Rutgers University"
@@ -32,7 +32,7 @@
     { "@type": "CollegeOrUniversity", "name": "Peking University" },
     { "@type": "CollegeOrUniversity", "name": "Northeastern University, China" }
   ],
-  "knowsAbout": ["Heterogeneous Graph Neural Networks", "Distributed Graph Processing", "Large-Scale Graph Mining"],
+  "knowsAbout": ["Distributed Graph Learning", "Graph Neural Networks", "Large-Scale Graph Mining", "Link Prediction"],
   "sameAs": [
     "https://scholar.google.com/citations?user=ntWtrXcAAAAJ",
     "https://dblp.org/pid/224/5058",
@@ -47,7 +47,7 @@
   <!-- RAIL:START -->
   <header class="rail">
     <h1>Jinquan Hang <span class="name-cn" lang="zh-Hans">杭锦泉</span></h1>
-    <p class="role">Ph.D. Student in Computer Science<br>Rutgers University</p>
+    <p class="role">Ph.D. Candidate in Computer Science<br>Rutgers University</p>
     <nav class="profile-links" aria-label="Profiles and contact">
       <a class="email" href="mailto:jinquan.hang@rutgers.edu">jinquan.hang@rutgers.edu</a>
       <a href="https://scholar.google.com/citations?user=ntWtrXcAAAAJ">Google Scholar</a>
@@ -64,16 +64,28 @@
   <main class="content">
 
     <p class="bio">
-      I am a Ph.D. student in Computer Science at Rutgers University, advised by
+      I am a Ph.D. candidate in Computer Science at Rutgers University, advised by
       <a href="https://people.cs.rutgers.edu/~dz220/">Prof. Desheng Zhang</a>.
-      My research focuses on heterogeneous graph neural networks and distributed graph processing
-      for large-scale real-world applications. The methods I develop run in production at
-      JD&nbsp;Logistics, mining billion-scale graphs nationwide. An
-      <a href="https://joinminer.com/">online demonstration</a> applies the same approach to a
-      billion-scale academic graph, predicting potential collaborations and citations among
-      researchers.
+      I work on distributed processing and learning over tables represented as graphs, especially
+      on long-range structures under neighborhood explosion. An
+      <a href="https://joinminer.com/">online demonstration</a> of these methods predicts an
+      author's potential new coauthors and references.
       I expect to graduate in Spring&nbsp;2027 and am looking for research positions in this area.
     </p>
+
+    <section id="research" aria-labelledby="research-heading">
+      <h2 id="research-heading">Research</h2>
+      <p class="prose">
+        Enterprise data is typically stored across multiple tables with different schemas, so each
+        prediction task requires its own manual feature engineering. If we choose certain columns
+        as entity identifiers, each entity corresponds to one node, and each row connects the
+        entities it involves, allowing a model to automatically learn from the tables as one
+        unified graph. Because this data is usually too large for a single machine, my research
+        focuses on distributed processing and learning over tables represented as graphs,
+        especially on the effective and efficient use of long-range structures under neighborhood
+        explosion.
+      </p>
+    </section>
 
     <section id="publications" aria-labelledby="publications-heading">
       <h2 id="publications-heading">Selected Publications</h2>
@@ -100,6 +112,48 @@
             <p class="pub-meta"><span class="venue">WSDM 2022</span> [<a href="https://doi.org/10.1145/3488560.3498483">Paper</a>]</p>
           </article>
           <!-- PUBS:END -->
+    </section>
+
+    <!-- Each entry opens with the same sentence: what was done with the framework, what it was
+         for, then the graph in a trailing "on ..." phrase. Keep the comma before that phrase —
+         without it, "become high-value on a billion-scale graph" misattaches. Keep "used it to"
+         rather than "to", which would read as if the framework were built for this one task.
+         After that: the measured result against whatever it replaced, then the scale or status.
+         Adding an entry means copying the shape, not rewriting prose. -->
+    <section id="applications" aria-labelledby="applications-heading">
+      <h2 id="applications-heading">Applications</h2>
+      <article class="app">
+        <p class="app-title">New Coauthor and Reference Discovery</p>
+        <p class="app-desc">
+          Built a link discovery framework and used it to predict an author's new coauthors and
+          references, on a billion-scale academic graph built from
+          <a href="https://openalex.org/">OpenAlex</a>. It selected more than 1.4&nbsp;billion
+          candidate pairs for each task and ranked them by predicted probability. Using only the
+          top 1% of the ranked pairs, it recalled over 31% of the actual new coauthors and
+          references. A <a href="https://joinminer.com/">demonstration</a> lets KDD&nbsp;2026
+          attendees explore their own predictions.
+        </p>
+      </article>
+      <article class="app">
+        <p class="app-title">Key Personnel Discovery</p>
+        <p class="app-desc">
+          Applied the same framework to find the unknown key personnel of companies, on a
+          billion-scale graph built from JD&nbsp;Logistics' internal data. Contacting the people it
+          discovered raised the contact success rate by 86% over the previously deployed
+          expert-designed rules. It was then scaled nationwide, selecting 1.8&nbsp;billion candidate
+          company&ndash;person pairs across 200&nbsp;million companies.
+        </p>
+      </article>
+      <article class="app">
+        <p class="app-title">High-Value Customer Ranking</p>
+        <p class="app-desc">
+          Built a node ranking framework and used it to rank customers nationwide by their potential
+          to become high-value, on a billion-scale graph built from JD&nbsp;Logistics' internal data.
+          Calling the customers it ranked highest raised the success rate by 252% over the previously
+          deployed expert-designed rules. It has ranked customers for sales outreach continuously
+          since December 2022.
+        </p>
+      </article>
     </section>
 
     <section id="education" aria-labelledby="education-heading">
