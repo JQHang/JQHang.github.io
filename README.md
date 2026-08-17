@@ -73,4 +73,4 @@ DNS for the custom domain (records must stay unproxied / DNS-only):
 | Type  | Name | Value                                                        |
 | ----- | ---- | ------------------------------------------------------------ |
 | A     | @    | 185.199.108.153, 185.199.109.153, 185.199.110.153, 185.199.111.153 |
-| CNAME | www  | jqhang.github.io                                             |
+| CNAME | www  | jinquanhang.github.io                                        |
